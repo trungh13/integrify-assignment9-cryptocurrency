@@ -1,4 +1,5 @@
 const url = "https://api.coinmarketcap.com/v2/ticker/?limit=2000&convert=BTC";
+const coinURL = "https://coinmarketcap.com/currencies/";
 let data;
 fetch(url)
   .then(function(response) {
@@ -19,14 +20,16 @@ const render = item => {
   const itemHeaderRank = document.createElement("div");
   itemHeaderRank.className = "item-header-rank";
   itemHeaderRank.innerHTML = item.rank;
-  const itemHeaderSymbol = document.createElement("div");
+  const itemHeaderSymbol = document.createElement("a");
   itemHeaderSymbol.className = "item-header-symbol";
   itemHeaderSymbol.innerHTML = item.symbol;
+  itemHeaderSymbol.href = coinURL + item.name;
   const itemHeaderName = document.createElement("div");
   itemHeaderName.className = "item-header-name";
   itemHeaderName.appendChild(itemHeaderSymbol);
-  itemHeaderName.innerHTML +=`(${item.name})`;
+  itemHeaderName.innerHTML += `(${item.name})`;
   
+itemHeaderName.setAttribute = ("target", "_blank");
   itemHeader.appendChild(itemHeaderName);
   itemHeader.appendChild(itemHeaderRank);
 
