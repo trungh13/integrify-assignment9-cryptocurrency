@@ -1,0 +1,89 @@
+:root {
+  --color-1: #13293d;
+  --color-2: #006494;
+  --color-3: #247ba0;
+  --color-4: #1b98e0;
+  --color-5: #e8f1f2;
+  --grid-columns: repeat(4, minmax(200px, 25%));
+}
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body {
+  background-color: var(--color-5);
+  color: var(--color-5);
+  height: 100%;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 100;
+}
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+  color: var(--color-1);
+  font-weight: 400;
+  background-color: var(--color-5);
+  box-shadow: 0px 1px 15px var(--color-1);
+  z-index:69;
+}
+.container{
+    padding-top:50px;
+}
+#cryto-list {
+  width: 90%;
+  margin: auto;
+  display: grid;
+  grid-template-columns: var(--grid-columns);
+  grid-gap: 10px;
+  position: relative;
+}
+.item {
+  background-color: var(--color-3);
+}
+.item:hover {
+  margin-left: -5px;
+  margin-top: -5px;
+  box-shadow: 5px 5px var(--color-1);
+}
+.item-header {
+  background-color: var(--color-4);
+  padding: 20px 20px 10px 20px;
+  display: flex;
+  justify-content: space-between;
+}
+.item-header-name {
+  display: flex;
+  flex-wrap: wrap;
+}
+.item-header-symbol {
+  font-weight: 400;
+}
+.item-body {
+  padding: 10px 15px 20px 15px;
+  display: grid;
+  grid-template-areas:
+    "marketCap marketCap"
+    "priceUSD priceUSD"
+    "priceBTC priceBTC"
+    "volume24h volume24h"
+    "change24h change24h";
+}
+.item-body-marketCap {
+  grid-area: marketCap;
+}
+.item-body-priceUSD {
+  grid-area: priceUSD;
+}
+.item-body-priceBTC {
+  grid-area: priceBTC;
+}
+.item-body-volume24h {
+  grid-area: volume24h;
+}
+.item-body-change24h {
+  grid-area: change24h;
+}
