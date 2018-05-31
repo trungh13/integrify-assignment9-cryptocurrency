@@ -1,46 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" href="./src/style.css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,400,600,700,800" rel="stylesheet">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<link rel="stylesheet" href="./src/style.css">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:100,400,600,700,800" rel="stylesheet">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+	 crossorigin="anonymous">
 </head>
 
 <body>
-    <header> 
-        <p>Will be header</p>
-    </header>
-    <div class="main">
-        <div class="search-panel">
-            <input type="text" placeholder="Type the name of coin you want to search">
-            <button id="searchBtn">Search</button>
-        </div>
-        <div class="container">
-            <div id="cryto-list">
-                <!-- <div class="item" id="">
-                    <div class="item-header">
-                        <div class="item-header-rank">Rank</div>
-                        <div class="item-header-name">Name</div>
-                        <div class="item-header-symbol">Symbol</div>
-                    </div>
-                    <div class="item-body">
-                        <div class="item-body-marketCap">Market Cap</div>
-                        <div class="item-body-priceUSD">Price in USD</div>
-                        <div class="item-body-priceBTC">Price in BTC</div>
-                        <div class="item-body-volume24h">Volume 24h</div>
-                        <div class="item-body-change24h">Change 24h</div>
-                    </div>
-                </div> -->
-            </div>
-        </div>
-    </div>
+	<header>
+		<input type="text" id="search-panel" placeholder="Type the name of coin you want to search">
+	</header>
+	<div class="main">
+		<div id="cryto-list"></div>
+		<i id="sort-alphabet" class="sort fas fa-sort-alpha-up fa-2x"></i>
+		<i id="sort-rank"class="sort fas fa-sort-numeric-up fa-2x"></i>
+		<i id="sort-price"class="sort fas fa-sort-amount-up fa-2x"></i>
+	</div>
 
 
 
-    <script src="./src/scripts.js"></script>
+	<script src="./src/scripts.js"></script>
 </body>
 
 </html>

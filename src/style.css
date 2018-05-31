@@ -11,6 +11,24 @@
   margin: 0;
   box-sizing: border-box;
 }
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+a{
+  text-decoration: none;
+  color:var(--color-5)
+}
 body {
   background-color: var(--color-5);
   color: var(--color-5);
@@ -30,16 +48,21 @@ header {
   box-shadow: 0px 1px 15px var(--color-1);
   z-index:69;
 }
-.container{
-    padding-top:50px;
+#search-panel{
+  height:100%;
+  width: 100%;
+  padding-left:20px;
+  font-size:1em
 }
 #cryto-list {
-  width: 90%;
+  padding-top:90px;
   margin: auto;
   display: grid;
-  grid-template-columns: var(--grid-columns);
+  width: 90%;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
   grid-gap: 10px;
-  position: relative;
+  grid-auto-flow: dense;
+  justify-content: center;
 }
 .item {
   background-color: var(--color-3);
@@ -55,9 +78,25 @@ header {
   display: flex;
   justify-content: space-between;
 }
+.item-header-icon{
+  height:16px;
+  width: 16px;
+}
 .item-header-name {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
+}
+.item-header-name *{
+  margin-right:2px;
+}
+.item-header-icon{
+  background-color: white;
+    height: 16px;
+    width: 17px;
+    border-radius: 50%;
+    box-shadow: 1px 1px black;
+    padding:0px 2px 0px 0px;
 }
 .item-header-symbol {
   font-weight: 400;
@@ -65,25 +104,36 @@ header {
 .item-body {
   padding: 10px 15px 20px 15px;
   display: grid;
-  grid-template-areas:
-    "marketCap marketCap"
-    "priceUSD priceUSD"
-    "priceBTC priceBTC"
-    "volume24h volume24h"
-    "change24h change24h";
 }
-.item-body-marketCap {
-  grid-area: marketCap;
+.sort{
+  z-index: 100;
+  position: fixed;
+  bottom:20px;
+  height: 50px;
+  width: 50px;
+  background-color: orangered;
+  box-shadow: 3px 3px var(--color-1);
 }
-.item-body-priceUSD {
-  grid-area: priceUSD;
+.main i{
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  border-radius:50%;
 }
-.item-body-priceBTC {
-  grid-area: priceBTC;
+.sort:hover{
+  animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+  
+  cursor: pointer;
 }
-.item-body-volume24h {
-  grid-area: volume24h;
+.sort:active{
+  background-color:lightblue;
 }
-.item-body-change24h {
-  grid-area: change24h;
+#sort-alphabet{
+  right:20px;
+}
+#sort-rank{
+  right:75px;
+}
+#sort-price{
+  right:130px;
 }
