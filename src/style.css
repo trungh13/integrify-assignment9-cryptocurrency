@@ -4,7 +4,7 @@
   --color-3: #247ba0;
   --color-4: #1b98e0;
   --color-5: #e8f1f2;
-  --grid-columns: repeat(4, minmax(200px, 25%));
+  --color-shadow:rgba(0,0,0,0.8);
 }
 * {
   padding: 0;
@@ -58,11 +58,10 @@ header {
   top: 0;
   left: 0;
   right: 0;
-  height: 50px;
+  height: 60px;
   color: var(--color-1);
-  font-weight: 400;
   background-color: var(--color-5);
-  box-shadow: 0px 1px 15px var(--color-1);
+  box-shadow: 0px 1px 15px var(--color-shadow);
   z-index: 69;
 }
 #search-panel {
@@ -76,7 +75,7 @@ header {
   position:fixed;
   top:0;
   right:0;
-  height:50px;
+  height:60px;
   width: 70px;
   display:flex;
   align-items: center;
@@ -87,26 +86,35 @@ header {
 }
 #cryto-list {
   padding-top: 90px;
+  padding-bottom:30px;
   margin: auto;
-  display: grid;
   width: 90%;
-  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  display: grid;
   grid-gap: 10px;
   justify-content: center;
 }
+.display-grid{
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+}
+.display-table{
+  grid-template-columns:1fr;
+}
 .item {
   background-color: var(--color-3);
+  border-top:1px solid var(--color-5);
+  border-left:1px solid var(--color-5);
 }
 .item:hover {
   margin-left: -5px;
   margin-top: -5px;
-  box-shadow: 5px 5px var(--color-1);
+  box-shadow: 5px 5px var(--color-shadow);
 }
 .item-header {
   background-color: var(--color-4);
   padding: 20px 20px 10px 20px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 .item-header-icon {
   height: 16px;
@@ -125,7 +133,7 @@ header {
   height: 16px;
   width: 17px;
   border-radius: 50%;
-  box-shadow: 1px 1px black;
+  box-shadow: 1px 1px var(--color-shadow);
   padding: 0px 2px 0px 0px;
 }
 .item-header-symbol {
@@ -142,7 +150,7 @@ header {
   height: 50px;
   width: 50px;
   background-color: orangered;
-  box-shadow: 5px 5px var(--color-1);
+  box-shadow: 3px 3px var(--color-shadow);
 }
 .sort{
   display: flex;
@@ -167,4 +175,20 @@ header {
 }
 #sort-price {
   right: 130px;
+}
+
+.item-table{
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+} 
+.item-header-name-table{
+  display:grid;
+  grid-template-columns: 20px 1fr;
+  width: 100%;
+}
+.item-header-name-table p{
+  grid-column: 2/3;
+}
+.item-body-table{
+  grid-template-columns: 1fr 1fr ;
 }

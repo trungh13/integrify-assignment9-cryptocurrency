@@ -2,6 +2,7 @@ const url = "https://api.coinmarketcap.com/v2/ticker/?limit=2000&convert=BTC";
 const iconSrc = "https://s2.coinmarketcap.com/static/img/coins/16x16/";
 let myData;
 let newData;
+let itemList;
 fetch(url)
   .then(function(response) {
     return response.json();
@@ -42,7 +43,7 @@ const render = item => {
   itemHeaderName.className = "item-header-name";
   itemHeaderName.appendChild(itemHeaderIcon);
   itemHeaderName.appendChild(itemHeaderSymbol);
-  itemHeaderName.innerHTML += `(${item.name})`;
+  itemHeaderName.innerHTML += `<p>(${item.name})</p>`;
   const itemHeaderRank = document.createElement("div");
   itemHeaderRank.className = "item-header-rank";
   itemHeaderRank.innerHTML = item.rank;
@@ -84,6 +85,8 @@ const renderList = theList => {
   theList.forEach(element => {
     render(element);
   });
+  itemList = Object.values(document.querySelectorAll(".item"));
+  displayType.classList.contains("fa-bars") ? displayGrid() : displayTable();
 };
 
 searchPanel.addEventListener("input", event => {
@@ -191,10 +194,28 @@ function sortPriceFunc(data) {
 displayType.addEventListener("click", event => {
   display = event.target;
   if (display.classList.contains("fa-bars")) {
-    display.classList.remove("fa-bars")
+    display.classList.remove("fa-bars");
     display.classList.add("fa-th");
+    displayTable();
   } else {
-    display.classList.remove("fa-th")
+    display.classList.remove("fa-th");
     display.classList.add("fa-bars");
+    displayGrid();
   }
 });
+function displayTable() {
+  crytoList.classList = "display-table";
+  itemList.forEach(element => {
+    element.classList.add("item-table");
+    element.firstChild.firstChild.classList.add("item-header-name-table");
+    element.children[1].classList.add("item-body-table");
+  });
+}
+function displayGrid() {
+  crytoList.classList = "display-grid";
+  itemList.forEach(element => {
+    element.classList.remove("item-table");
+    element.firstChild.firstChild.classList.remove("item-header-name-table");
+    element.children[1].classList.remove("item-body-table");
+  });
+}
