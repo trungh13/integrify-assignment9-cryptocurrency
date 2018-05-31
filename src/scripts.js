@@ -52,9 +52,6 @@ const render = item => {
 
   const itemBody = document.createElement("div");
   itemBody.className = "item-body";
-  const itemBodyMarketCap = document.createElement("div");
-  itemBodyMarketCap.className = "item-body-marketCap";
-  itemBodyMarketCap.innerHTML = `Market cap : ${item.quotes.USD.market_cap}`;
 
   const itemBodyPriceUSD = document.createElement("div");
   itemBodyPriceUSD.className = "item-body-priceUSD";
@@ -64,13 +61,11 @@ const render = item => {
   itemBodyPriceBTC.innerHTML = `BTC : ${item.quotes.BTC.price}`;
   const itemBodyVol24h = document.createElement("div");
   itemBodyVol24h.className = "item-body-volumn24h";
-  itemBodyVol24h.innerHTML = `Volume 24h : ${item.quotes.USD.volume_24h}`;
+  itemBodyVol24h.innerHTML = `Volume in 24h : ${item.quotes.USD.volume_24h}`;
   const itemBodyChange24h = document.createElement("div");
   itemBodyChange24h.className = "item-body-change24h";
-  itemBodyChange24h.innerHTML = `Change 24h : ${
-    item.quotes.USD.percent_change_24h
-  }`;
-  itemBody.appendChild(itemBodyMarketCap);
+  itemBodyChange24h.innerHTML = `Change in 24h : ${item.quotes.USD.percent_change_24h}`;
+  item.quotes.USD.percent_change_24h>=0?itemBodyChange24h.innerHTML+=` <i class="fas fa-caret-up"></i>`:itemBodyChange24h.innerHTML+=` <i class="fas fa-caret-down"></i>`
   itemBody.appendChild(itemBodyPriceUSD);
   itemBody.appendChild(itemBodyPriceBTC);
   itemBody.appendChild(itemBodyVol24h);
@@ -207,6 +202,7 @@ function displayTable() {
   crytoList.classList = "display-table";
   itemList.forEach(element => {
     element.classList.add("item-table");
+    element.children[0].classList.add("item-header-table");
     element.firstChild.firstChild.classList.add("item-header-name-table");
     element.children[1].classList.add("item-body-table");
   });
@@ -215,7 +211,24 @@ function displayGrid() {
   crytoList.classList = "display-grid";
   itemList.forEach(element => {
     element.classList.remove("item-table");
+    element.children[0].classList.remove("item-header-table");
     element.firstChild.firstChild.classList.remove("item-header-name-table");
     element.children[1].classList.remove("item-body-table");
   });
 }
+
+const searchPaneDiv = document.querySelector(".search-panel-div");
+const searchPanelPos = searchPaneDiv.offsetTop;
+const displayTypeDiv = document.querySelector(".display-type-div");
+
+window.onscroll = function() {
+  if (window.pageYOffset >= (searchPanelPos)) {
+    searchPaneDiv.classList.add("fixed-header");
+    displayTypeDiv.classList.add("fixed-header");
+    crytoList.style.paddingTop = "90px";
+  } else {
+    searchPaneDiv.classList.remove("fixed-header");
+    displayTypeDiv.classList.remove("fixed-header");
+    crytoList.style.paddingTop = "30px";
+  }
+};
