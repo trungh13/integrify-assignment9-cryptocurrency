@@ -1,12 +1,7 @@
 const url = "https://api.coinmarketcap.com/v2/ticker/?limit=2000&convert=BTC";
-<<<<<<< HEAD
 const iconSrc = "https://s2.coinmarketcap.com/static/img/coins/16x16/";
 let myData;
 let newData;
-=======
-const coinURL = "https://coinmarketcap.com/currencies/";
-let data;
->>>>>>> 983f8fa968a03ca3d3fe9377d7c2b0d7df34ac17
 fetch(url)
   .then(function(response) {
     return response.json();
@@ -35,34 +30,22 @@ const render = item => {
 
   const itemHeader = document.createElement("div");
   itemHeader.className = "item-header";
-<<<<<<< HEAD
   const itemHeaderIcon = document.createElement("img");
   itemHeaderIcon.className = "item-header-icon";
   itemHeaderIcon.src = `${iconSrc}${item.id}.png`;
-=======
-  const itemHeaderRank = document.createElement("div");
-  itemHeaderRank.className = "item-header-rank";
-  itemHeaderRank.innerHTML = item.rank;
->>>>>>> 983f8fa968a03ca3d3fe9377d7c2b0d7df34ac17
   const itemHeaderSymbol = document.createElement("a");
   itemHeaderSymbol.className = "item-header-symbol";
   itemHeaderSymbol.href = `https://coinmarketcap.com/currencies/${item.name}`;
   itemHeaderSymbol.setAttribute("target", "_blank");
   itemHeaderSymbol.innerHTML = item.symbol;
-  itemHeaderSymbol.href = coinURL + item.name;
   const itemHeaderName = document.createElement("div");
   itemHeaderName.className = "item-header-name";
   itemHeaderName.appendChild(itemHeaderIcon);
   itemHeaderName.appendChild(itemHeaderSymbol);
   itemHeaderName.innerHTML += `(${item.name})`;
-<<<<<<< HEAD
   const itemHeaderRank = document.createElement("div");
   itemHeaderRank.className = "item-header-rank";
   itemHeaderRank.innerHTML = item.rank;
-=======
-  
-itemHeaderName.setAttribute = ("target", "_blank");
->>>>>>> 983f8fa968a03ca3d3fe9377d7c2b0d7df34ac17
   itemHeader.appendChild(itemHeaderName);
   itemHeader.appendChild(itemHeaderRank);
 
