@@ -21,6 +21,7 @@ const sortName = document.getElementById("sort-alphabet");
 const sortRank = document.getElementById("sort-rank");
 const sortPrice = document.getElementById("sort-price");
 const sortButton = document.querySelectorAll("i");
+const displayType = document.getElementById("display-type");
 
 const render = item => {
   const itemNode = document.createElement("div");
@@ -96,7 +97,7 @@ searchPanel.addEventListener("input", event => {
   renderList(searchData);
 });
 //Change logos
-sortName.addEventListener("click", event => {
+sortName.children[0].addEventListener("click", event => {
   if (event.target.classList.contains("fa-sort-alpha-up")) {
     sortType = "name-asc";
     event.target.classList.remove("fa-sort-alpha-up");
@@ -107,7 +108,7 @@ sortName.addEventListener("click", event => {
     event.target.classList.add("fa-sort-alpha-up");
   }
 });
-sortRank.addEventListener("click", event => {
+sortRank.children[0].addEventListener("click", event => {
   typeSort = "rank";
   if (event.target.classList.contains("fa-sort-numeric-up")) {
     sortType = "rank-asc";
@@ -119,7 +120,7 @@ sortRank.addEventListener("click", event => {
     event.target.classList.add("fa-sort-numeric-up");
   }
 });
-sortPrice.addEventListener("click", event => {
+sortPrice.children[0].addEventListener("click", event => {
   typeSort = "quotes.USD.price";
   if (event.target.classList.contains("fa-sort-amount-up")) {
     sortType = "price-asc";
@@ -186,3 +187,14 @@ function sortPriceFunc(data) {
   });
   return newData;
 }
+//change display
+displayType.addEventListener("click", event => {
+  display = event.target;
+  if (display.classList.contains("fa-bars")) {
+    display.classList.remove("fa-bars")
+    display.classList.add("fa-th");
+  } else {
+    display.classList.remove("fa-th")
+    display.classList.add("fa-bars");
+  }
+});

@@ -11,23 +11,40 @@
   margin: 0;
   box-sizing: border-box;
 }
+@keyframes spin {
+  25%{
+    transform:rotate(22deg);
+  }
+  70%{
+    transform:rotate(25deg);
+  }
+  100%{
+    transform:rotate(0deg)
+  }
+  
+}
 @keyframes shake {
-  10%, 90% {
-    transform: translate3d(-1px, 0, 0);
+  10%,
+  90% {
+    transform: translate3d(-1px, 1px, 0);
   }
-  20%, 80% {
-    transform: translate3d(2px, 0, 0);
+  20%,
+  80% {
+    transform: translate3d(1px, 1px, 0);
   }
-  30%, 50%, 70% {
-    transform: translate3d(-4px, 0, 0);
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-1px, 1px, 0);
   }
-  40%, 60% {
-    transform: translate3d(4px, 0, 0);
+  40%,
+  60% {
+    transform: translate3d(1px, -1px, 0);
   }
 }
-a{
+a {
   text-decoration: none;
-  color:var(--color-5)
+  color: var(--color-5);
 }
 body {
   background-color: var(--color-5);
@@ -46,22 +63,35 @@ header {
   font-weight: 400;
   background-color: var(--color-5);
   box-shadow: 0px 1px 15px var(--color-1);
-  z-index:69;
+  z-index: 69;
 }
-#search-panel{
-  height:100%;
+#search-panel {
+  height: 100%;
   width: 100%;
-  padding-left:20px;
-  font-size:1em
+  padding-left: 20px;
+  font-size: 1em;
+  border: none;
+}
+.display-type-div{
+  position:fixed;
+  top:0;
+  right:0;
+  height:50px;
+  width: 70px;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+#display-type{
+  color:gray;
 }
 #cryto-list {
-  padding-top:90px;
+  padding-top: 90px;
   margin: auto;
   display: grid;
   width: 90%;
   grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
   grid-gap: 10px;
-  grid-auto-flow: dense;
   justify-content: center;
 }
 .item {
@@ -78,8 +108,8 @@ header {
   display: flex;
   justify-content: space-between;
 }
-.item-header-icon{
-  height:16px;
+.item-header-icon {
+  height: 16px;
   width: 16px;
 }
 .item-header-name {
@@ -87,16 +117,16 @@ header {
   flex-wrap: wrap;
   align-items: center;
 }
-.item-header-name *{
-  margin-right:2px;
+.item-header-name * {
+  margin-right: 2px;
 }
-.item-header-icon{
+.item-header-icon {
   background-color: white;
-    height: 16px;
-    width: 17px;
-    border-radius: 50%;
-    box-shadow: 1px 1px black;
-    padding:0px 2px 0px 0px;
+  height: 16px;
+  width: 17px;
+  border-radius: 50%;
+  box-shadow: 1px 1px black;
+  padding: 0px 2px 0px 0px;
 }
 .item-header-symbol {
   font-weight: 400;
@@ -105,35 +135,36 @@ header {
   padding: 10px 15px 20px 15px;
   display: grid;
 }
-.sort{
+.sort {
   z-index: 100;
   position: fixed;
-  bottom:20px;
+  bottom: 20px;
   height: 50px;
   width: 50px;
   background-color: orangered;
-  box-shadow: 3px 3px var(--color-1);
+  box-shadow: 5px 5px var(--color-1);
 }
-.main i{
-  display:flex;
+.sort{
+  display: flex;
   align-items: center;
   justify-content: center;
-  border-radius:50%;
+  border-radius: 50%;
 }
-.sort:hover{
-  animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
-  
+.sort i:hover{
+  animation: spin 1s;
+}
+.sort:hover {
   cursor: pointer;
 }
-.sort:active{
-  background-color:lightblue;
+.sort:active {
+  background-color: lightblue;
 }
-#sort-alphabet{
-  right:20px;
+#sort-alphabet {
+  right: 20px;
 }
-#sort-rank{
-  right:75px;
+#sort-rank {
+  right: 75px;
 }
-#sort-price{
-  right:130px;
+#sort-price {
+  right: 130px;
 }
