@@ -69,14 +69,18 @@ header h1:nth-child(2){
   height: 60px;
   color: var(--color-1);
   background-color: var(--color-5);
-  box-shadow: 0px 1px 15px var(--color-shadow);
   z-index: 69;
   position: relative;
+  margin:auto;
+  width: 90%;
 }
 .fixed-header {
   position: fixed;
   top: 0;
   width: 100%;
+}
+.search-panel-div.fixed-header{
+  box-shadow: 0px 1px 15px var(--color-shadow);
 }
 #search-panel {
   height: 100%;

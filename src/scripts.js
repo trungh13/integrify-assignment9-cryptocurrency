@@ -1,16 +1,14 @@
-const url = "https://api.coinmarketcap.com/v2/ticker/?limit=2000&convert=BTC";
+const url = "https://api.coinmarketcap.com/v2/ticker/?convert=BTC";
 const iconSrc = "https://s2.coinmarketcap.com/static/img/coins/16x16/";
 let myData;
 let newData;
 let itemList;
 fetch(url)
-  .then(function(response) {
-    return response.json();
-  })
-  .then(function(myJson) {
-    myData = [Object.values(myJson.data)][0];
-    newData = myData;
+  .then(res => res.json())
+  .then(json => {
+    myData = [Object.values(json.data)][0];
     renderList(myData);
+    newData = myData;
   });
 
 let searchData = [];
@@ -23,7 +21,11 @@ const sortRank = document.getElementById("sort-rank");
 const sortPrice = document.getElementById("sort-price");
 const sortButton = document.querySelectorAll("i");
 const displayType = document.getElementById("display-type");
+const searchPaneDiv = document.querySelector(".search-panel-div");
+const searchPanelPos = searchPaneDiv.offsetTop;
+const displayTypeDiv = document.querySelector(".display-type-div");
 
+const initHeight = window.innerHeight + window.scrollY;
 const render = item => {
   const itemNode = document.createElement("div");
   itemNode.className = "item";
@@ -64,8 +66,12 @@ const render = item => {
   itemBodyVol24h.innerHTML = `Volume in 24h : ${item.quotes.USD.volume_24h}`;
   const itemBodyChange24h = document.createElement("div");
   itemBodyChange24h.className = "item-body-change24h";
-  itemBodyChange24h.innerHTML = `Change in 24h : ${item.quotes.USD.percent_change_24h}`;
-  item.quotes.USD.percent_change_24h>=0?itemBodyChange24h.innerHTML+=` <i class="fas fa-caret-up"></i>`:itemBodyChange24h.innerHTML+=` <i class="fas fa-caret-down"></i>`
+  itemBodyChange24h.innerHTML = `Change in 24h : ${
+    item.quotes.USD.percent_change_24h
+  }`;
+  item.quotes.USD.percent_change_24h >= 0
+    ? (itemBodyChange24h.innerHTML += ` <i class="fas fa-caret-up"></i>`)
+    : (itemBodyChange24h.innerHTML += ` <i class="fas fa-caret-down"></i>`);
   itemBody.appendChild(itemBodyPriceUSD);
   itemBody.appendChild(itemBodyPriceBTC);
   itemBody.appendChild(itemBodyVol24h);
@@ -76,7 +82,6 @@ const render = item => {
   crytoList.appendChild(itemNode);
 };
 const renderList = theList => {
-  crytoList.innerHTML = "";
   theList.forEach(element => {
     render(element);
   });
@@ -88,10 +93,13 @@ searchPanel.addEventListener("input", event => {
   searchLog = event.target.value;
   console.log(searchLog);
   searchData = myData.filter(el => {
-    return el.name.toLowerCase().includes(searchLog.toLowerCase());
+    return (
+      el.name.toLowerCase().includes(searchLog.toLowerCase()) ||
+      el.symbol.toLowerCase().includes(searchLog.toLowerCase())
+    );
   });
   console.log(searchData.length, "result(s)");
-  crytoList.innerHTML = null;
+  clearList();
   renderList(searchData);
 });
 //Change logos
@@ -133,6 +141,7 @@ sortPrice.children[0].addEventListener("click", event => {
 //sort function
 sortButton.forEach(sortBtn => {
   sortBtn.addEventListener("click", event => {
+    clearList();
     switch (sortType) {
       case "name-asc":
         newData = sortNameFunc(myData);
@@ -216,13 +225,9 @@ function displayGrid() {
     element.children[1].classList.remove("item-body-table");
   });
 }
-
-const searchPaneDiv = document.querySelector(".search-panel-div");
-const searchPanelPos = searchPaneDiv.offsetTop;
-const displayTypeDiv = document.querySelector(".display-type-div");
-
 window.onscroll = function() {
-  if (window.pageYOffset >= (searchPanelPos)) {
+  //fixed-header
+  if (window.pageYOffset >= searchPanelPos) {
     searchPaneDiv.classList.add("fixed-header");
     displayTypeDiv.classList.add("fixed-header");
     crytoList.style.paddingTop = "90px";
@@ -230,5 +235,29 @@ window.onscroll = function() {
     searchPaneDiv.classList.remove("fixed-header");
     displayTypeDiv.classList.remove("fixed-header");
     crytoList.style.paddingTop = "30px";
+  }
+  //scroll end page -100px
+  if (window.pageYOffset >= document.body.offsetHeight - initHeight - 200) {
+    console.log("bottom");
+  }
+};
+
+function clearList() {
+  crytoList.innerHTML = null;
+}
+let counter = 1;
+window.onscroll = function(ev) {
+  if (
+    window.innerHeight + window.pageYOffset >=
+    document.body.offsetHeight - 100
+  ) {
+    fetch(`${url}&start=${(counter += 100)}`)
+      .then(res => res.json())
+      .then(json => {
+        Object.values(json.data).forEach(el => newData.push(el));
+        console.log(newData);
+        clearList();
+        renderList(newData);
+      });
   }
 };
