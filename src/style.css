@@ -217,3 +217,22 @@ header h1:nth-child(2){
   grid-template-columns: 1fr 1fr;
   padding: 10px 20px;
 }
+@media only screen and (max-width: 680px) {
+  header h1{
+    font-size:2em;
+  }
+}
+@media only screen and (max-width: 486px) {
+  header h1{
+    font-size:1.5em;
+  }
+}
+@media only screen and (max-width: 390px) {
+  header h1{
+    font-size:1.3em;
+  }
+}@media only screen and (max-width: 633px) {
+  .display-type-div{
+    display:none;
+  }
+}
