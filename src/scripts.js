@@ -225,7 +225,10 @@ function displayGrid() {
     element.children[1].classList.remove("item-body-table");
   });
 }
-window.onscroll = function() {
+
+let counter = 1;
+
+window.onscroll = function(ev) {
   //fixed-header
   if (window.pageYOffset >= searchPanelPos) {
     searchPaneDiv.classList.add("fixed-header");
@@ -237,16 +240,6 @@ window.onscroll = function() {
     crytoList.style.paddingTop = "30px";
   }
   //scroll end page -100px
-  if (window.pageYOffset >= document.body.offsetHeight - initHeight - 200) {
-    console.log("bottom");
-  }
-};
-
-function clearList() {
-  crytoList.innerHTML = null;
-}
-let counter = 1;
-window.onscroll = function(ev) {
   if (
     window.innerHeight + window.pageYOffset >=
     document.body.offsetHeight - 100
@@ -261,3 +254,7 @@ window.onscroll = function(ev) {
       });
   }
 };
+
+function clearList() {
+  crytoList.innerHTML = null;
+}
