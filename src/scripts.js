@@ -24,7 +24,7 @@ const displayType = document.getElementById("display-type");
 const searchPaneDiv = document.querySelector(".search-panel-div");
 const searchPanelPos = searchPaneDiv.offsetTop;
 const displayTypeDiv = document.querySelector(".display-type-div");
-const numberOfCoins=document.getElementById("number-of-coin")
+const numberOfCoins = document.getElementById("number-of-coin");
 
 const initHeight = window.innerHeight + window.scrollY;
 const render = item => {
@@ -89,7 +89,7 @@ const renderList = theList => {
   itemList = Object.values(document.querySelectorAll(".item"));
   displayType.classList.contains("fa-bars") ? displayGrid() : displayTable();
 
-  numberOfCoins.innerHTML=theList.length 
+  numberOfCoins.innerHTML = theList.length;
 };
 
 searchPanel.addEventListener("input", event => {
@@ -100,7 +100,7 @@ searchPanel.addEventListener("input", event => {
       el.symbol.toLowerCase().includes(searchLog.toLowerCase())
     );
   });
-  numberOfCoins.innerHTML=searchData.length;
+  numberOfCoins.innerHTML = searchData.length;
   clearList();
   renderList(searchData);
 });
@@ -167,7 +167,7 @@ sortButton.forEach(sortBtn => {
         break;
     }
     renderList(newData);
-    searchPanel.value=null
+    searchPanel.value = null;
   });
 });
 
@@ -245,7 +245,7 @@ window.onscroll = function(ev) {
   //scroll end page -100px
   if (
     window.innerHeight + window.pageYOffset >=
-    document.body.offsetHeight - 100
+    document.body.offsetHeight -50
   ) {
     fetch(`${url}&start=${(counter += 100)}`)
       .then(res => res.json())
