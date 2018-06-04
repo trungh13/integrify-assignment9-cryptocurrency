@@ -24,6 +24,7 @@ const displayType = document.getElementById("display-type");
 const searchPaneDiv = document.querySelector(".search-panel-div");
 const searchPanelPos = searchPaneDiv.offsetTop;
 const displayTypeDiv = document.querySelector(".display-type-div");
+const numberOfCoins=document.getElementById("number-of-coin")
 
 const initHeight = window.innerHeight + window.scrollY;
 const render = item => {
@@ -68,7 +69,7 @@ const render = item => {
   itemBodyChange24h.className = "item-body-change24h";
   itemBodyChange24h.innerHTML = `Change in 24h : ${
     item.quotes.USD.percent_change_24h
-  }`;
+  }%`;
   item.quotes.USD.percent_change_24h >= 0
     ? (itemBodyChange24h.innerHTML += ` <i class="fas fa-caret-up"></i>`)
     : (itemBodyChange24h.innerHTML += ` <i class="fas fa-caret-down"></i>`);
@@ -87,18 +88,19 @@ const renderList = theList => {
   });
   itemList = Object.values(document.querySelectorAll(".item"));
   displayType.classList.contains("fa-bars") ? displayGrid() : displayTable();
+
+  numberOfCoins.innerHTML=theList.length 
 };
 
 searchPanel.addEventListener("input", event => {
   searchLog = event.target.value;
-  console.log(searchLog);
   searchData = myData.filter(el => {
     return (
       el.name.toLowerCase().includes(searchLog.toLowerCase()) ||
       el.symbol.toLowerCase().includes(searchLog.toLowerCase())
     );
   });
-  console.log(searchData.length, "result(s)");
+  numberOfCoins.innerHTML=searchData.length;
   clearList();
   renderList(searchData);
 });
@@ -165,6 +167,7 @@ sortButton.forEach(sortBtn => {
         break;
     }
     renderList(newData);
+    searchPanel.value=null
   });
 });
 
