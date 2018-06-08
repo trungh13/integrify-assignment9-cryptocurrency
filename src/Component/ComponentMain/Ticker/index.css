@@ -1,0 +1,44 @@
+.Ticker {
+  background-color: var(--color-3);
+  border-top: 1px solid var(--color-5);
+  border-left: 1px solid var(--color-5);
+}
+.Ticker:hover {
+  margin-left: -5px;
+  margin-top: -5px;
+  box-shadow: 5px 5px var(--color-shadow);
+}
+.TickerHeader {
+  background-color: var(--color-4);
+  padding: 20px 20px 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.TickerHeader-icon {
+  height: 16px;
+  width: 16px;
+}
+.TickerHeader-name {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.TickerHeader-name * {
+  margin-right: 2px;
+}
+.TickerHeader-icon {
+  background-color: white;
+  height: 16px;
+  width: 17px;
+  border-radius: 50%;
+  box-shadow: 1px 1px var(--color-shadow);
+  padding: 0px 2px 0px 0px;
+}
+.TickerHeader-symbol {
+  font-weight: 400;
+}
+.TickerContent {
+  padding: 10px 15px 20px 15px;
+  display: grid;
+}

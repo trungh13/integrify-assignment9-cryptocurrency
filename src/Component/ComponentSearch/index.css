@@ -1,0 +1,15 @@
+.ComponentSearch{
+    overflow: hidden;
+    height: 60px;
+    z-index: 69;
+    position: relative;
+    margin: auto;
+    width: 90%;
+}
+.searchInput{
+    height: 100%;
+    width: 100%;
+    padding-left: 20px;
+    font-size: 1em;
+    border: none;
+}
