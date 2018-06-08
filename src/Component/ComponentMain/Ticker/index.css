@@ -15,19 +15,15 @@
   justify-content: space-between;
   align-items: center;
 }
-.TickerHeader-icon {
-  height: 16px;
-  width: 16px;
-}
-.TickerHeader-name {
+.TickerHeaderName {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
 }
-.TickerHeader-name * {
+.TickerHeaderName * {
   margin-right: 2px;
 }
-.TickerHeader-icon {
+.TickerHeaderNameIcon {
   background-color: white;
   height: 16px;
   width: 17px;
@@ -35,7 +31,7 @@
   box-shadow: 1px 1px var(--color-shadow);
   padding: 0px 2px 0px 0px;
 }
-.TickerHeader-symbol {
+.TickerHeaderNameSymbol {
   font-weight: 400;
 }
 .TickerContent {

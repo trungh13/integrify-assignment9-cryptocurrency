@@ -1,17 +1,23 @@
 import React, { Component } from "react";
+import styles from "./index.css";
+
+import Ticker from "./Ticker";
+
 export class ComponentMain extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      myData: []
+      myData: [],
+      displayType: "displayGrid"
     };
   }
 
   componentDidMount = () => {
     this.fetchCoinsData();
-    this.delay=setTimeout(() => {
-        console.log(this.state.myData)
-    }, 1000);
+    this.delay = setInterval(() => {
+      console.log("Updated data");
+      this.fetchCoinsData();
+    }, 1000 * 60);
   };
 
   fetchCoinsData() {
@@ -24,7 +30,17 @@ export class ComponentMain extends Component {
       .catch(err => console.log(err));
   }
   render() {
-    return <div />;
+    return (
+      <div
+        className={[styles.ComponentMain, styles[this.state.displayType]].join(
+          " "
+        )}
+      >
+        {this.state.myData.map((element, index) => (
+          <Ticker data={element} key={index} />
+        ))}
+      </div>
+    );
   }
 }
 
