@@ -4,16 +4,13 @@ export class ComponentSearch extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      inputSearch: ""
+      query: ""
     };
   }
-  componentDidUpdate(){
-    
-  }
-  handleInput = function(e) {
-    this.setState({ inputSearch: e.target.value });
-    console.log("current inputSearch:", e.target.value);
-    console.log("this state inputSearch:", this.state.inputSearch);
+  update = e => {
+    // console.log(e.target.value);
+    this.props.onUpdate(e.target.value);
+    this.setState({ query: e.target.value });
   };
 
   render() {
@@ -22,7 +19,8 @@ export class ComponentSearch extends Component {
         <input
           className={styles.searchInput}
           type="text"
-          onChange={e => this.handleInput(e)}
+          onChange={this.update}
+          placeholder="Type the name of coin you want to search"
         />
       </div>
     );

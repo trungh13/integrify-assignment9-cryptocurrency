@@ -7,38 +7,36 @@ export class ComponentMain extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      myData: [],
+      filteredData: [],
+      query: this.props.query,
       displayType: "displayGrid"
     };
   }
 
-  componentDidMount = () => {
-    this.fetchCoinsData();
-    this.delay = setInterval(() => {
-      console.log("Updated data");
-      this.fetchCoinsData();
-    }, 1000 * 60);
-  };
-
-  fetchCoinsData() {
-    const url = "https://api.coinmarketcap.com/v2/ticker/?convert=BTC";
-    fetch(url)
-      .then(res => res.json())
-      .then(json => {
-        this.setState({ myData: [Object.values(json.data)][0] });
-      })
-      .catch(err => console.log(err));
+  static getDerivedStateFromProps(props, state) {
+    if (props.query !== state.query) { 
+        return {
+        query: props.query,
+        filteredData:props.data.filter(el => {
+            return (
+              el.name.toLowerCase().includes(props.query.toLowerCase()) ||
+              el.symbol.toLowerCase().includes(props.query.toLowerCase())
+            );
+          })
+      };
+    }
+    return null;
   }
+
   render() {
+    const renderList=(data) => data.map((element, index) => (
+        <Ticker data={element} key={index} />
+      ));
+    console.log(this.state.query);
     return (
       <div
-        className={[styles.ComponentMain, styles[this.state.displayType]].join(
-          " "
-        )}
-      >
-        {this.state.myData.map((element, index) => (
-          <Ticker data={element} key={index} />
-        ))}
+        className={[styles.ComponentMain, styles[this.state.displayType]].join(" ")}>
+        {this.state.query?renderList(this.state.filteredData):renderList(this.props.data)}
       </div>
     );
   }
