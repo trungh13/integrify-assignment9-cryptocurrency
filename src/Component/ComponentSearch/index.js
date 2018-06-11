@@ -3,7 +3,10 @@ import styles from "./index.css";
 
 import ComponentDisplay from "./ComponentDisplay";
 const ComponentSearch = props => (
-  <div className={styles.ComponentSearch}>
+  <div
+    className={styles.ComponentSearch}
+    ref={props.searchComponent}
+  >
     <input
       className={styles.searchInput}
       type="text"

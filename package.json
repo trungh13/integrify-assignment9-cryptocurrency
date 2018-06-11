@@ -1,4 +1,5 @@
 {
+  "homepage": "http://trungh13.github.io/integrify-assignment9-cryptocurrency",
   "name": "integrify-assignment9-cryptocurrency-react",
   "version": "0.1.0",
   "private": true,
@@ -47,7 +48,9 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js --env=jsdom"
+    "test": "node scripts/test.js --env=jsdom",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "jest": {
     "collectCoverageFrom": [
@@ -92,6 +95,7 @@
     "extends": "react-app"
   },
   "devDependencies": {
-    "font-awesome": "^4.7.0"
+    "font-awesome": "^4.7.0",
+    "gh-pages": "^1.2.0"
   }
 }

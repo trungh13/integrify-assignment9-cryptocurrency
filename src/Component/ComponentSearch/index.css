@@ -1,16 +1,21 @@
-.ComponentSearch{
-    height: 60px;
-    z-index: 69;
-    position: relative;
-    margin: auto;
-    width: 90%;
-    justify-content: space-between;
-    align-items: center;
+.ComponentSearch {
+  height: 60px;
+  z-index: 69;
+  position: relative;
+  margin: auto;
+  width: 90%;
+  justify-content: space-between;
+  align-items: center;
 }
-.searchInput{
-    height: 100%;
-    width: 100%;
-    padding-left: 20px;
-    font-size: 1em;
-    border: none;
+.searchInput {
+  height: 100%;
+  width: 100%;
+  padding-left: 20px;
+  font-size: 1em;
+  border: none;
+}
+.fixedHeader {
+  position: fixed;
+  top: 0;
+  width: 100%;
 }

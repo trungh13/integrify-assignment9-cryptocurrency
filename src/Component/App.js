@@ -18,17 +18,33 @@ class App extends Component {
         sortAlphabet: "fas fa-sort-alpha-up fa-2x",
         sortRank: "fas fa-sort-numeric-up fa-2x",
         sortPrice: "fas fa-sort-amount-up fa-2x"
-      }
+      },
+      ComponentSearchOffsetTop: 0,
+      fixedHeader: ""
     };
   }
+
+  searchComponent = React.createRef();
+
   componentDidMount = () => {
     this.fetchCoinsData();
-    this.delay = setInterval(() => {
-      console.log("Updated data");
-      this.fetchCoinsData();
-    }, 1000 * 60);
+    window.addEventListener("scroll", this.handleScroll);
+    this.setState({
+      ComponentSearchOffsetTop: this.searchComponent.current.offsetTop
+    });
   };
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.handleScroll);
+  }
 
+  handleScroll = () => {
+    if (window.pageYOffset >=this.state.ComponentSearchOffsetTop + 50)
+      this.searchComponent.current.classList.add(styles.fixedHeader);
+      // this.setState({ fixedHeader: "fixedHeader" });
+    else this.searchComponent.current.classList.remove(styles.fixedHeader);
+    this.searchComponent.current.classList.remove(styles.fixedHeader);
+    // this.setState({ fixedHeader: "" });
+  };
   fetchCoinsData = () => {
     const url = "https://api.coinmarketcap.com/v2/ticker/?convert=BTC";
     fetch(url)
@@ -62,7 +78,7 @@ class App extends Component {
       })
     });
   };
-  sortNameFunc=()=> {
+  sortNameFunc = () => {
     return this.state.data.sort(function(a, b) {
       const nameA = a.name.toUpperCase();
       const nameB = b.name.toUpperCase();
@@ -74,22 +90,22 @@ class App extends Component {
       }
       return 0;
     });
-  }
-  sortRankFunc=()=> {
+  };
+  sortRankFunc = () => {
     return this.state.data.sort(function(a, b) {
       return a.rank - b.rank;
     });
-  }
-  sortPriceFunc=()=> {
+  };
+  sortPriceFunc = () => {
     return this.state.data.sort(function(a, b) {
       return a.quotes.USD.price - b.quotes.USD.price;
     });
-  }
+  };
   handleSort = type => {
     switch (type) {
       case "fas fa-sort-alpha-up fa-2x":
         this.setState({
-          filteredData:this.sortNameFunc(),
+          filteredData: this.sortNameFunc(),
           sortIcons: {
             ...this.state.sortIcons,
             sortAlphabet: "fas fa-sort-alpha-down fa-2x"
@@ -98,7 +114,7 @@ class App extends Component {
         break;
       case "fas fa-sort-alpha-down fa-2x":
         this.setState({
-          filteredData:this.sortNameFunc().reverse(),
+          filteredData: this.sortNameFunc().reverse(),
           sortIcons: {
             ...this.state.sortIcons,
             sortAlphabet: "fas fa-sort-alpha-up fa-2x"
@@ -107,7 +123,7 @@ class App extends Component {
         break;
       case "fas fa-sort-numeric-up fa-2x":
         this.setState({
-          filteredData:this.sortRankFunc(),
+          filteredData: this.sortRankFunc(),
           sortIcons: {
             ...this.state.sortIcons,
             sortRank: "fas fa-sort-numeric-down fa-2x"
@@ -116,7 +132,7 @@ class App extends Component {
         break;
       case "fas fa-sort-numeric-down fa-2x":
         this.setState({
-          filteredData:this.sortRankFunc().reverse(),
+          filteredData: this.sortRankFunc().reverse(),
           sortIcons: {
             ...this.state.sortIcons,
             sortRank: "fas fa-sort-numeric-up fa-2x"
@@ -125,7 +141,7 @@ class App extends Component {
         break;
       case "fas fa-sort-amount-up fa-2x":
         this.setState({
-          filteredData:this.sortPriceFunc(),
+          filteredData: this.sortPriceFunc(),
           sortIcons: {
             ...this.state.sortIcons,
             sortPrice: "fas fa-sort-amount-down fa-2x"
@@ -134,7 +150,7 @@ class App extends Component {
         break;
       case "fas fa-sort-amount-down fa-2x":
         this.setState({
-          filteredData:this.sortPriceFunc().reverse(),
+          filteredData: this.sortPriceFunc().reverse(),
           sortIcons: {
             ...this.state.sortIcons,
             sortPrice: "fas fa-sort-amount-up fa-2x"
@@ -151,11 +167,14 @@ class App extends Component {
       <div className={styles.Container}>
         <ComponentHeader />
         <ComponentSearch
+          className={styles.ComponentSearch}
           handleSearch={this.handleSearch}
           CoinsNumber={this.state.filteredData.length || this.state.data.length}
           displayClick={this.displayHandle}
           displayIcon={this.state.displayIcon}
-        />
+          searchComponent={this.searchComponent}
+        >
+        </ComponentSearch>
         <ComponentMain
           data={this.state.data}
           query={this.state.query}

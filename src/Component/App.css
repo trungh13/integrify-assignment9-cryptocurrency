@@ -1,3 +1,9 @@
 .Container{
     position: relative;
 }
+.fixedHeader {
+    position: fixed;
+    top: 0;
+    width: 100%;
+  }
+  
