@@ -1,30 +1,21 @@
-import React, { Component } from "react";
+import React from "react";
 import styles from "./index.css";
-export class ComponentSearch extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      query: ""
-    };
-  }
-  update = e => {
-    // console.log(e.target.value);
-    this.props.onUpdate(e.target.value);
-    this.setState({ query: e.target.value });
-  };
 
-  render() {
-    return (
-      <div className={styles.ComponentSearch}>
-        <input
-          className={styles.searchInput}
-          type="text"
-          onChange={this.update}
-          placeholder="Type the name of coin you want to search"
-        />
-      </div>
-    );
-  }
-}
+import ComponentDisplay from "./ComponentDisplay";
+const ComponentSearch = props => (
+  <div className={styles.ComponentSearch}>
+    <input
+      className={styles.searchInput}
+      type="text"
+      onChange={e => props.handleSearch(e.target.value)}
+      placeholder="Type the name of coins"
+    />
+    <ComponentDisplay
+      click={props.displayClick}
+      CoinsNumber={props.CoinsNumber}
+      displayIcon={props.displayIcon}
+    />
+  </div>
+);
 
 export default ComponentSearch;

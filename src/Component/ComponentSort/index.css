@@ -1,0 +1,39 @@
+.sortDiv{
+    position: fixed;
+    bottom:10px;
+    right:10px;
+    display:flex;
+}
+.sortButtonDiv{
+    margin:0px 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    z-index: 1;
+    height: 50px;
+    width: 50px;
+    background-color: orangered;
+    box-shadow: 3px 3px var(--color-shadow);
+    color:white;
+}
+@keyframes spin {
+    25% {
+      transform: rotate(22deg);
+    }
+    70% {
+      transform: rotate(25deg);
+    }
+    100% {
+      transform: rotate(0deg);
+    }
+  }
+  .sortButtonDiv:hover{
+      cursor: pointer;
+  }
+  .sortButtonDiv i:hover{
+      animation:spin 1s;
+  }
+  .sortButtonDiv:active {
+    background-color: lightblue;
+  }

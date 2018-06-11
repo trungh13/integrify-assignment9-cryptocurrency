@@ -1,0 +1,34 @@
+.ComponentDisplay {
+  height: 60px;
+  width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 69;
+  padding: 10px;
+  position: absolute;
+  right: 0;
+  top: 0px;
+}
+.CoinsNumber {
+  display: flex;
+}
+
+#displayIcon{}
+@media only screen and (max-width: 633px) {
+    #displayIcon{
+      display: none;
+    }
+    .ComponentDisplay{
+      width: fit-content;
+      justify-content: flex-end;
+      padding-right:20px
+    }
+    .CoinsNumberDescription{
+      display: none;
+    }
+    .CoinsNumber{
+      font-weight: 900;
+    }
+  }
+  
