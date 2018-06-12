@@ -11,7 +11,7 @@ const ComponentSearch = props => (
       className={styles.searchInput}
       type="text"
       onChange={e => props.handleSearch(e.target.value)}
-      placeholder="Type the name of coins"
+      placeholder="Search by name/symbol of coins"
     />
     <ComponentDisplay
       click={props.displayClick}
