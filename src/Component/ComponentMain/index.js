@@ -9,9 +9,8 @@ const ComponentMain = props => {
 
   return (
     <div
-      className={[styles.ComponentMain, styles[props.displayType]].join(" ")}
-    >
-      {props.query ? renderList(props.filteredData) : renderList(props.data)}
+      className={[styles.ComponentMain, styles[props.displayType],styles[props.fixedHeader]].join(" ")}>
+      {renderList(props.filteredData)}
     </div>
   );
 };

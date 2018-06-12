@@ -14,3 +14,6 @@
 .displayTable {
   grid-template-columns: 1fr;
 }
+.fixedHeader{
+  padding-top:90px;
+}

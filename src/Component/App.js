@@ -5,6 +5,7 @@ import ComponentHeader from "./ComponentHeader";
 import ComponentSearch from "./ComponentSearch";
 import ComponentMain from "./ComponentMain";
 import ComponentSort from "./ComponentSort";
+import ComponentLoading from "./ComponentLoading";
 class App extends Component {
   constructor(props) {
     super(props);
@@ -20,11 +21,15 @@ class App extends Component {
         sortPrice: "fas fa-sort-amount-up fa-2x"
       },
       ComponentSearchOffsetTop: 0,
-      fixedHeader: ""
+      fixedHeader: "",
+      counter: 101,
+      isFiltering: false
     };
   }
 
   searchComponent = React.createRef();
+
+  fetchURL = `https://api.coinmarketcap.com/v2/ticker/?convert=BTC&start=`;
 
   componentDidMount = () => {
     this.fetchCoinsData();
@@ -38,19 +43,29 @@ class App extends Component {
   }
 
   handleScroll = () => {
-    if (window.pageYOffset >=this.state.ComponentSearchOffsetTop + 50)
-      this.searchComponent.current.classList.add(styles.fixedHeader);
-      // this.setState({ fixedHeader: "fixedHeader" });
-    else this.searchComponent.current.classList.remove(styles.fixedHeader);
-    this.searchComponent.current.classList.remove(styles.fixedHeader);
-    // this.setState({ fixedHeader: "" });
+    if (window.pageYOffset >= this.state.ComponentSearchOffsetTop + 50)
+      this.setState({ fixedHeader: "fixedHeader" });
+    else this.setState({ fixedHeader: "" });
+    if (
+      window.innerHeight + window.pageYOffset >=
+        document.body.offsetHeight + 29 &&
+      !this.state.isFiltering
+    ) {
+      this.fetchCoinsData(this.state.counter);
+    }
   };
-  fetchCoinsData = () => {
-    const url = "https://api.coinmarketcap.com/v2/ticker/?convert=BTC";
-    fetch(url)
+  fetchCoinsData = (counter = 1) => {
+    counter = 1 || this.state.counter;
+    const fetchURL =
+      "https://api.coinmarketcap.com/v2/ticker/?convert=BTC&start=";
+    fetch(`${fetchURL}${counter}`)
       .then(res => res.json())
       .then(json => {
-        this.setState({ data: [Object.values(json.data)][0] });
+        this.setState({
+          data: this.state.data.concat(Object.values(json.data)),
+          counter: counter === 1 ? 101 : counter + 100,
+          filteredData: this.state.data.concat(Object.values(json.data))
+        });
       })
       .catch(err => console.log(err));
   };
@@ -68,18 +83,24 @@ class App extends Component {
   };
 
   handleSearch = searchInput => {
-    this.setState({
-      query: searchInput,
-      filteredData: this.state.data.filter(el => {
-        return (
-          el.name.toLowerCase().includes(searchInput.toLowerCase()) ||
-          el.symbol.toLowerCase().includes(searchInput.toLowerCase())
-        );
-      })
-    });
+    searchInput !== ""
+      ? this.setState({
+          query: searchInput,
+          filteredData: this.state.data.filter(el => {
+            return (
+              el.name.toLowerCase().includes(searchInput.toLowerCase()) ||
+              el.symbol.toLowerCase().includes(searchInput.toLowerCase())
+            );
+          }),
+          isFiltering: true
+        })
+      : this.setState({
+          filteredData: this.state.data,
+          isFiltering: false
+        });
   };
   sortNameFunc = () => {
-    return this.state.data.sort(function(a, b) {
+    return this.state.filteredData.sort(function(a, b) {
       const nameA = a.name.toUpperCase();
       const nameB = b.name.toUpperCase();
       if (nameA < nameB) {
@@ -92,12 +113,12 @@ class App extends Component {
     });
   };
   sortRankFunc = () => {
-    return this.state.data.sort(function(a, b) {
+    return this.state.filteredData.sort(function(a, b) {
       return a.rank - b.rank;
     });
   };
   sortPriceFunc = () => {
-    return this.state.data.sort(function(a, b) {
+    return this.state.filteredData.sort(function(a, b) {
       return a.quotes.USD.price - b.quotes.USD.price;
     });
   };
@@ -163,28 +184,29 @@ class App extends Component {
     }
   };
   render() {
+    console.log(this.state.isFiltering.toString());
     return (
       <div className={styles.Container}>
         <ComponentHeader />
         <ComponentSearch
           className={styles.ComponentSearch}
           handleSearch={this.handleSearch}
-          CoinsNumber={this.state.filteredData.length || this.state.data.length}
+          CoinsNumber={this.state.filteredData.length}
           displayClick={this.displayHandle}
           displayIcon={this.state.displayIcon}
           searchComponent={this.searchComponent}
-        >
-        </ComponentSearch>
+          fixedHeader={this.state.fixedHeader}
+        />
         <ComponentMain
-          data={this.state.data}
-          query={this.state.query}
-          displayType={this.state.displayType}
           filteredData={this.state.filteredData}
+          displayType={this.state.displayType}
+          fixedHeader={this.state.fixedHeader}
         />
         <ComponentSort
           sortIcons={this.state.sortIcons}
           handleSort={this.handleSort}
         />
+        <ComponentLoading isFiltering={this.state.isFiltering.toString()} />
       </div>
     );
   }

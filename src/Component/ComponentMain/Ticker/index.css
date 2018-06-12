@@ -49,10 +49,9 @@
 .TickerHeaderNameIcon {
   background-color: white;
   height: 16px;
-  width: 17px;
+  width: 16px;
   border-radius: 50%;
   box-shadow: 1px 1px var(--color-shadow);
-  padding: 0px 2px 0px 0px;
 }
 .TickerHeaderNameSymbol {
   font-weight: 400;
@@ -65,9 +64,9 @@
   grid-template-columns: 1fr 1fr;
   padding: 10px 20px;
 }
-.fas.fa-caret-up{
+.up{
   color:lightgreen;
 }
-.fas.fa-caret-down{
-  color:darkred;
+.down{
+  color:lightcoral;
 }

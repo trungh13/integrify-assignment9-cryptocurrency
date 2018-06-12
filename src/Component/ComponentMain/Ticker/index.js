@@ -19,9 +19,11 @@ const Ticker = (props) => {
       <div className={[styles.TickerContent,styles[props.displayType]].join(" ")}>
         <div className={styles.TickerContentPriceUSD}>{`USD : ${data.quotes.USD.price}`}</div>
         <div className={styles.TickerContentPriceBTC}>{`BTC : ${data.quotes.BTC.price}`}</div>
-        <div className={styles.TickerContentVolume24h}>{`Volume in 24h : ${data.quotes.USD.volume_24h}`}</div>
+        <div className={styles.TickerContentChange1h}>{`Change in 1h : ${data.quotes.USD.percent_change_1h}% `}
+        {data.quotes.USD.percent_change_1h>=0?<i className={["fas fa-caret-up",styles["up"]].join(" ")}></i>: <i className={["fas fa-caret-down",styles["down"]].join(" ")}></i>}
+        </div>
         <div className={styles.TickerContentChange24h}>{`Change in 24h : ${data.quotes.USD.percent_change_24h}% `} 
-        {data.quotes.USD.percent_change_24h>=0?<i className="fas fa-caret-up"></i>: <i className="fas fa-caret-down"></i>}
+        {data.quotes.USD.percent_change_24h>=0?<i className={["fas fa-caret-up",styles["up"]].join(" ")}></i>: <i className={["fas fa-caret-down",styles["down"]].join(" ")}></i>}
         </div>
       </div>
       

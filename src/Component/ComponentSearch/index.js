@@ -4,7 +4,7 @@ import styles from "./index.css";
 import ComponentDisplay from "./ComponentDisplay";
 const ComponentSearch = props => (
   <div
-    className={styles.ComponentSearch}
+    className={[styles.ComponentSearch,styles[props.fixedHeader]].join(" ")}
     ref={props.searchComponent}
   >
     <input
