@@ -79,10 +79,7 @@ class App extends Component {
 
   fetchData = () => {
     fetch(
-      `https://api.coinmarketcap.com/v2/ticker/?convert=BTC&start=${Math.min(
-        this.state.counter,
-        this.state.totalCoins
-      )}`
+      `https://api.coinmarketcap.com/v2/ticker/?convert=BTC&start=${Math.min(this.state.counter,this.state.totalCoins)}`
     )
       .then(res => res.json())
       .then(json => {
@@ -168,8 +165,7 @@ class App extends Component {
       case "fas fa-sort-alpha-up fa-2x":
         this.setState({
           data: this.sortNameFunc(),
-          sortIcons: {
-            ...this.state.sortIcons,
+          sortIcons: {...this.state.sortIcons,
             sortAlphabet: "fas fa-sort-alpha-down fa-2x"
           }
         });
@@ -177,8 +173,7 @@ class App extends Component {
       case "fas fa-sort-alpha-down fa-2x":
         this.setState({
           data: this.sortNameFunc().reverse(),
-          sortIcons: {
-            ...this.state.sortIcons,
+          sortIcons: {...this.state.sortIcons,
             sortAlphabet: "fas fa-sort-alpha-up fa-2x"
           }
         });
@@ -186,8 +181,7 @@ class App extends Component {
       case "fas fa-sort-numeric-up fa-2x":
         this.setState({
           data: this.sortRankFunc(),
-          sortIcons: {
-            ...this.state.sortIcons,
+          sortIcons: {...this.state.sortIcons,
             sortRank: "fas fa-sort-numeric-down fa-2x"
           }
         });
@@ -195,8 +189,7 @@ class App extends Component {
       case "fas fa-sort-numeric-down fa-2x":
         this.setState({
           data: this.sortRankFunc().reverse(),
-          sortIcons: {
-            ...this.state.sortIcons,
+          sortIcons: {...this.state.sortIcons,
             sortRank: "fas fa-sort-numeric-up fa-2x"
           }
         });
@@ -204,8 +197,7 @@ class App extends Component {
       case "fas fa-sort-amount-up fa-2x":
         this.setState({
           data: this.sortPriceFunc(),
-          sortIcons: {
-            ...this.state.sortIcons,
+          sortIcons: {...this.state.sortIcons,
             sortPrice: "fas fa-sort-amount-down fa-2x"
           }
         });
@@ -213,8 +205,7 @@ class App extends Component {
       case "fas fa-sort-amount-down fa-2x":
         this.setState({
           data: this.sortPriceFunc().reverse(),
-          sortIcons: {
-            ...this.state.sortIcons,
+          sortIcons: {...this.state.sortIcons,
             sortPrice: "fas fa-sort-amount-up fa-2x"
           }
         });

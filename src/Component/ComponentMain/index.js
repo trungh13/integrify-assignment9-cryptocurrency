@@ -5,7 +5,7 @@ import Ticker from "./Ticker";
 
 const ComponentMain = props => {
   const renderList = data =>
-    data.map((element, index) => <Ticker data={element} key={index} displayType={props.displayType}/>);
+    data.map((element) => <Ticker data={element} key={element.id} displayType={props.displayType}/>);
 
   return (
     <div
