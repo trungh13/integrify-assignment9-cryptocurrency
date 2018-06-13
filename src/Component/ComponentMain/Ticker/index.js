@@ -1,11 +1,10 @@
 import React from 'react'
 import styles from "./index.css";
 
-const dataIconSrc = "https://s2.coinmarketcap.com/static/img/coins/16x16/";
-const dataLink="https://coinmarketcap.com/currencies/"
-
 const Ticker = (props) => {
   const data=props.data;
+  const dataIconSrc = "https://s2.coinmarketcap.com/static/img/coins/16x16/";
+  const dataLink="https://coinmarketcap.com/currencies/"
   return (
     <div className={[styles.Ticker,styles[props.displayType]].join(" ")}>
       <div className={[styles.TickerHeader,styles[props.displayType]].join(" ")}>
@@ -26,7 +25,6 @@ const Ticker = (props) => {
         {data.quotes.USD.percent_change_24h>=0?<i className={["fas fa-caret-up",styles["up"]].join(" ")}></i>: <i className={["fas fa-caret-down",styles["down"]].join(" ")}></i>}
         </div>
       </div>
-      
     </div>
   )
 }

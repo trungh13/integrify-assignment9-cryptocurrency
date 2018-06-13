@@ -1,5 +1,6 @@
 import React from "react";
 import styles from './index.css'
+
 const ComponentSort = props => (
   <div className={styles.sortDiv}>
     <div className={styles.sortButtonDiv} id="sort-alphabet">

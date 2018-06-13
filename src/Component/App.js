@@ -6,9 +6,11 @@ import ComponentSearch from "./ComponentSearch";
 import ComponentMain from "./ComponentMain";
 import ComponentSort from "./ComponentSort";
 import ComponentLoading from "./ComponentLoading";
+
 class App extends Component {
   constructor(props) {
     super(props);
+    this.searchComponent = React.createRef();
     this.state = {
       data: [],
       query: "",
@@ -28,9 +30,7 @@ class App extends Component {
     };
   }
 
-  searchComponent = React.createRef();
-
-  fetchURL = `https://api.coinmarketcap.com/v2/ticker/?convert=BTC&start=`;
+  
 
   componentDidMount = () => {
     this.fetchCoinsData();
