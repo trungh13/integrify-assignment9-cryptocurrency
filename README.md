@@ -40,4 +40,4 @@ cd integrify-assignment9-cryptocurrency
 npm install
 ```
 ---
-©2018 Trung Hoang. Visit me on <a href="https://github.com/trungh13/">:octocat:</a> 
+©2018 Trung Hoang. Visit me on <a href="https://github.com/trungh13/">Github :octocat:</a> 
