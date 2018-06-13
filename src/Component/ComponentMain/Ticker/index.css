@@ -21,8 +21,8 @@
   grid-template-columns: 1fr 3fr;
 }
 .TickerHeader {
-  background-color: var(--color-4);
-  padding: 20px 20px 10px 20px;
+  background-color: var(--color-2);
+  padding: 20px 20px 10px 15px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -37,21 +37,21 @@
 }
 .TickerHeaderName.displayTable {
   display: grid;
-  grid-template-columns: 20px 1fr;
+  grid-template-columns: 40px 1fr;
   width: 100%;
+}
+.TickerHeaderName.displayTable a{
+  padding-bottom:10px;
 }
 .TickerHeaderName.displayTable p {
   grid-column: 2/3;
+  margin-top:-10px;
 }
 .TickerHeaderName * {
   margin-right: 2px;
 }
 .TickerHeaderNameIcon {
-  background-color: white;
-  height: 16px;
-  width: 16px;
-  border-radius: 50%;
-  box-shadow: 1px 1px var(--color-shadow);
+  margin-left:2px;
 }
 .TickerHeaderNameSymbol {
   font-weight: 400;

@@ -14,7 +14,8 @@
   display: flex;
 }
 
-#displayIcon{}
+#displayIcon{
+}
 @media only screen and (max-width: 633px) {
     #displayIcon{
       display: none;

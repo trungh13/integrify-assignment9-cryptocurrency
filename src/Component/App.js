@@ -13,9 +13,9 @@ class App extends Component {
     this.searchComponent = React.createRef();
     this.state = {
       data: [],
+      filteredData: [],
       query: "",
       displayIcon: "fas fa-2x fa-bars",
-      filteredData: [],
       displayType: "displayGrid",
       sortIcons: {
         sortAlphabet: "fas fa-sort-alpha-up fa-2x",
@@ -26,11 +26,11 @@ class App extends Component {
       fixedHeader: "",
       counter: 101,
       isFiltering: false,
-      totalCoins: 0
+      totalCoins: 0,
+      totalData:[]
     };
   }
 
-  
 
   componentDidMount = () => {
     this.fetchCoinsData();
@@ -38,7 +38,9 @@ class App extends Component {
     this.setState({
       ComponentSearchOffsetTop: this.searchComponent.current.offsetTop
     });
+
   };
+
   componentWillUnmount() {
     window.removeEventListener("scroll", this.handleScroll);
   }
@@ -188,6 +190,7 @@ class App extends Component {
     }
   };
   render() {
+    console.log(this.state.isFiltering)
     return (
       <div className={styles.Container}>
         <ComponentHeader />

@@ -3,7 +3,7 @@ import styles from "./index.css";
 
 const Ticker = (props) => {
   const data=props.data;
-  const dataIconSrc = "https://s2.coinmarketcap.com/static/img/coins/16x16/";
+  const dataIconSrc = "https://s2.coinmarketcap.com/static/img/coins/32x32/";
   const dataLink="https://coinmarketcap.com/currencies/"
   return (
     <div className={[styles.Ticker,styles[props.displayType]].join(" ")}>
