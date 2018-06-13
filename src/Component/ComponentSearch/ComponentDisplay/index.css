@@ -1,20 +1,30 @@
 .ComponentDisplay {
   height: 60px;
-  width: 200px;
+  width: 250px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   z-index: 69;
   padding: 10px;
   position: absolute;
   right: 0;
   top: 0px;
 }
+.ComponentDisplay i{
+  margin:0 5px;
+}
 .CoinsNumber {
   display: flex;
 }
-
-#displayIcon{
+@keyframes spin {
+  from {transform:rotate(0deg)}
+  to {transform:rotate(359deg)}
+}
+.CoinsNumber i{
+  animation: spin 1s infinite;
+}
+.CoinsNumberDescription{
+  margin-right:2px;
 }
 @media only screen and (max-width: 633px) {
     #displayIcon{

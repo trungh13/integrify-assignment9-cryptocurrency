@@ -24,21 +24,19 @@ class App extends Component {
       },
       ComponentSearchOffsetTop: 0,
       fixedHeader: "",
-      counter: 101,
+      counter: 1,
       isFiltering: false,
       totalCoins: 0,
-      totalData:[]
+      totalData: []
     };
   }
 
-
   componentDidMount = () => {
-    this.fetchCoinsData();
+    this.fetchData();
     window.addEventListener("scroll", this.handleScroll);
     this.setState({
       ComponentSearchOffsetTop: this.searchComponent.current.offsetTop
     });
-
   };
 
   componentWillUnmount() {
@@ -49,35 +47,62 @@ class App extends Component {
     if (window.pageYOffset >= this.state.ComponentSearchOffsetTop + 50)
       this.setState({ fixedHeader: "fixedHeader" });
     else this.setState({ fixedHeader: "" });
-    if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight + 29 
-        && !this.state.isFiltering 
-        && this.state.counter <= this.state.totalCoins - (this.state.totalCoins % 100) + 1) {
-      this.fetchCoinsData(this.state.counter);
+    if (
+      window.innerHeight + window.pageYOffset >=
+        document.body.offsetHeight + 29 &&
+      !this.state.isFiltering
+    ) {
+      // this.fetchCoinsData(this.state.counter);
+      console.log("to bottom");
+      this.setState({
+        data: this.state.data.concat(
+          this.state.totalData.slice(
+            this.state.data.length,
+            this.state.data.length + 100
+          )
+        )
+      });
     }
     if (this.state.data.length === this.state.totalCoins) {
       this.setState({
         isFiltering: true
       });
-      console.log(`End of the coin list with total ${this.state.totalCoins} coins`
+      console.log(
+        `End of the coin list with total ${this.state.totalCoins} coins`
       );
     } else
       this.setState({
         isFiltering: false
       });
+    // console.log("scroll");
   };
 
-  fetchCoinsData = (counter = 1) => {
-    const fetchURL =
-      "https://api.coinmarketcap.com/v2/ticker/?convert=BTC&start=";
-    fetch(`${fetchURL}${counter}`)
+  fetchData = () => {
+    fetch(
+      `https://api.coinmarketcap.com/v2/ticker/?convert=BTC&start=${Math.min(
+        this.state.counter,
+        this.state.totalCoins
+      )}`
+    )
       .then(res => res.json())
       .then(json => {
-        this.setState({
-          data: this.state.data.concat(Object.values(json.data)),
-          counter: counter === 1 ? 101 : counter + 100,
-          filteredData: this.state.data.concat(Object.values(json.data)),
-          totalCoins: json.metadata.num_cryptocurrencies
-        });
+        if (this.state.totalCoins === 0) {
+          this.setState({
+            totalCoins: json.metadata.num_cryptocurrencies
+          });
+        }
+        if (this.state.counter <= this.state.totalCoins) {
+          this.setState({
+            totalData: this.state.totalData.concat(Object.values(json.data)),
+            filteredData: this.state.totalData.concat(Object.values(json.data)),
+            counter: this.state.counter + 100
+          });
+          if (this.state.totalData.length === 100)
+            this.setState({
+              data: this.state.totalData
+            });
+          this.fetchData();
+        }
       })
       .catch(err => console.log(err));
   };
@@ -98,7 +123,7 @@ class App extends Component {
     searchInput !== ""
       ? this.setState({
           query: searchInput,
-          filteredData: this.state.data.filter(el => {
+          filteredData: this.state.totalData.filter(el => {
             return (
               el.name.toLowerCase().includes(searchInput.toLowerCase()) ||
               el.symbol.toLowerCase().includes(searchInput.toLowerCase())
@@ -107,13 +132,14 @@ class App extends Component {
           isFiltering: true
         })
       : this.setState({
-          filteredData: this.state.data,
+          filteredData: this.state.totalData,
           isFiltering: false
         });
   };
 
   sortNameFunc = () => {
-    return this.state.filteredData.sort(function(a, b) {
+    const filteredData = this.state.data;
+    return filteredData.sort(function(a, b) {
       const nameA = a.name.toUpperCase();
       const nameB = b.name.toUpperCase();
       if (nameA < nameB) {
@@ -126,12 +152,14 @@ class App extends Component {
     });
   };
   sortRankFunc = () => {
-    return this.state.filteredData.sort(function(a, b) {
+    const filteredData = this.state.data;
+    return filteredData.sort(function(a, b) {
       return a.rank - b.rank;
     });
   };
   sortPriceFunc = () => {
-    return this.state.filteredData.sort(function(a, b) {
+    const filteredData = this.state.data;
+    return filteredData.sort(function(a, b) {
       return a.quotes.USD.price - b.quotes.USD.price;
     });
   };
@@ -139,49 +167,55 @@ class App extends Component {
     switch (type) {
       case "fas fa-sort-alpha-up fa-2x":
         this.setState({
-          filteredData: this.sortNameFunc(),
-          sortIcons: {...this.state.sortIcons,
-                      sortAlphabet: "fas fa-sort-alpha-down fa-2x"
+          data: this.sortNameFunc(),
+          sortIcons: {
+            ...this.state.sortIcons,
+            sortAlphabet: "fas fa-sort-alpha-down fa-2x"
           }
         });
         break;
       case "fas fa-sort-alpha-down fa-2x":
         this.setState({
-          filteredData: this.sortNameFunc().reverse(),
-          sortIcons: {...this.state.sortIcons,
-                      sortAlphabet: "fas fa-sort-alpha-up fa-2x"
+          data: this.sortNameFunc().reverse(),
+          sortIcons: {
+            ...this.state.sortIcons,
+            sortAlphabet: "fas fa-sort-alpha-up fa-2x"
           }
         });
         break;
       case "fas fa-sort-numeric-up fa-2x":
         this.setState({
-          filteredData: this.sortRankFunc(),
-          sortIcons: {...this.state.sortIcons,
-                      sortRank: "fas fa-sort-numeric-down fa-2x"
+          data: this.sortRankFunc(),
+          sortIcons: {
+            ...this.state.sortIcons,
+            sortRank: "fas fa-sort-numeric-down fa-2x"
           }
         });
         break;
       case "fas fa-sort-numeric-down fa-2x":
         this.setState({
-          filteredData: this.sortRankFunc().reverse(),
-          sortIcons: {...this.state.sortIcons,
-                      sortRank: "fas fa-sort-numeric-up fa-2x"
+          data: this.sortRankFunc().reverse(),
+          sortIcons: {
+            ...this.state.sortIcons,
+            sortRank: "fas fa-sort-numeric-up fa-2x"
           }
         });
         break;
       case "fas fa-sort-amount-up fa-2x":
         this.setState({
-          filteredData: this.sortPriceFunc(),
-          sortIcons: {...this.state.sortIcons,
-                      sortPrice: "fas fa-sort-amount-down fa-2x"
+          data: this.sortPriceFunc(),
+          sortIcons: {
+            ...this.state.sortIcons,
+            sortPrice: "fas fa-sort-amount-down fa-2x"
           }
         });
         break;
       case "fas fa-sort-amount-down fa-2x":
         this.setState({
-          filteredData: this.sortPriceFunc().reverse(),
-          sortIcons: {...this.state.sortIcons,
-                      sortPrice: "fas fa-sort-amount-up fa-2x"
+          data: this.sortPriceFunc().reverse(),
+          sortIcons: {
+            ...this.state.sortIcons,
+            sortPrice: "fas fa-sort-amount-up fa-2x"
           }
         });
         break;
@@ -190,7 +224,9 @@ class App extends Component {
     }
   };
   render() {
-    console.log(this.state.isFiltering)
+    const renderData = this.state.isFiltering
+      ? this.state.filteredData
+      : this.state.data;
     return (
       <div className={styles.Container}>
         <ComponentHeader />
@@ -202,9 +238,11 @@ class App extends Component {
           displayIcon={this.state.displayIcon}
           searchComponent={this.searchComponent}
           fixedHeader={this.state.fixedHeader}
+          totalData={this.state.totalData}
+          totalCoins={this.state.totalCoins}
         />
         <ComponentMain
-          filteredData={this.state.filteredData}
+          renderData={renderData}
           displayType={this.state.displayType}
           fixedHeader={this.state.fixedHeader}
         />

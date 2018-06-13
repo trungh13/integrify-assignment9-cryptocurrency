@@ -10,7 +10,7 @@ const ComponentMain = props => {
   return (
     <div
       className={[styles.ComponentMain, styles[props.displayType],styles[props.fixedHeader]].join(" ")}>
-      {renderList(props.filteredData)}
+      {renderList(props.renderData)}
     </div>
   );
 };

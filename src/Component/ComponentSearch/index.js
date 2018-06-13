@@ -4,8 +4,9 @@ import styles from "./index.css";
 import ComponentDisplay from "./ComponentDisplay";
 const ComponentSearch = props => (
   <div
-    className={[styles.ComponentSearch,styles[props.fixedHeader]].join(" ")}
-    ref={props.searchComponent}>
+    className={[styles.ComponentSearch, styles[props.fixedHeader]].join(" ")}
+    ref={props.searchComponent}
+  >
     <input
       className={styles.searchInput}
       type="text"
@@ -16,6 +17,8 @@ const ComponentSearch = props => (
       click={props.displayClick}
       CoinsNumber={props.CoinsNumber}
       displayIcon={props.displayIcon}
+      totalData={props.totalData}
+      totalCoins={props.totalCoins}
     />
   </div>
 );
