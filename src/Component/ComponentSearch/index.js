@@ -19,6 +19,7 @@ const ComponentSearch = props => (
       displayIcon={props.displayIcon}
       totalData={props.totalData}
       totalCoins={props.totalCoins}
+      data={props.data}
     />
   </div>
 );

@@ -18,9 +18,9 @@ class App extends Component {
       displayIcon: "fas fa-2x fa-bars",
       displayType: "displayGrid",
       sortIcons: {
-        sortAlphabet: "fas fa-sort-alpha-up fa-2x",
-        sortRank: "fas fa-sort-numeric-up fa-2x",
-        sortPrice: "fas fa-sort-amount-up fa-2x"
+        sortAlphabet: "asc",
+        sortRank: "asc",
+        sortPrice: "asc"
       },
       ComponentSearchOffsetTop: 0,
       fixedHeader: "",
@@ -79,7 +79,10 @@ class App extends Component {
 
   fetchData = () => {
     fetch(
-      `https://api.coinmarketcap.com/v2/ticker/?convert=BTC&start=${Math.min(this.state.counter,this.state.totalCoins)}`
+      `https://api.coinmarketcap.com/v2/ticker/?convert=BTC&start=${Math.min(
+        this.state.counter,
+        this.state.totalCoins
+      )}`
     )
       .then(res => res.json())
       .then(json => {
@@ -134,79 +137,97 @@ class App extends Component {
         });
   };
 
-  sortNameFunc = () => {
-    const filteredData = this.state.data;
+  sortNameFunc = asc => {
+    const filteredData = [...this.state.data];
     return filteredData.sort(function(a, b) {
       const nameA = a.name.toUpperCase();
       const nameB = b.name.toUpperCase();
-      if (nameA < nameB) {
-        return -1;
-      }
-      if (nameA > nameB) {
-        return 1;
+      if (asc) {
+        if (nameA < nameB) {
+          return -1;
+        }
+        if (nameA > nameB) {
+          return 1;
+        }
+      } else {
+        if (nameA > nameB) {
+          return -1;
+        }
+        if (nameA < nameB) {
+          return 1;
+        }
       }
       return 0;
     });
   };
-  sortRankFunc = () => {
-    const filteredData = this.state.data;
+
+  sortRankFunc = asc => {
+    const filteredData = [...this.state.data];
     return filteredData.sort(function(a, b) {
-      return a.rank - b.rank;
+      return asc ? a.rank - b.rank : b.rank - a.rank;
     });
   };
-  sortPriceFunc = () => {
-    const filteredData = this.state.data;
+  sortPriceFunc = asc => {
+    const filteredData = [...this.state.data];
     return filteredData.sort(function(a, b) {
-      return a.quotes.USD.price - b.quotes.USD.price;
+      return asc
+        ? a.quotes.USD.price - b.quotes.USD.price
+        : b.quotes.USD.price - a.quotes.USD.price;
     });
   };
-  handleSort = type => {
-    switch (type) {
-      case "fas fa-sort-alpha-up fa-2x":
+  handleSort = (type,typeSort) => {
+    switch (`${type} ${typeSort}`) {
+      case "alphabet asc":
         this.setState({
-          data: this.sortNameFunc(),
-          sortIcons: {...this.state.sortIcons,
-            sortAlphabet: "fas fa-sort-alpha-down fa-2x"
+          data: this.sortNameFunc(true),
+          sortIcons: {
+            ...this.state.sortIcons,
+            sortAlphabet: "desc"
           }
         });
         break;
-      case "fas fa-sort-alpha-down fa-2x":
+      case "alphabet desc":
         this.setState({
-          data: this.sortNameFunc().reverse(),
-          sortIcons: {...this.state.sortIcons,
-            sortAlphabet: "fas fa-sort-alpha-up fa-2x"
+          data: this.sortNameFunc(false),
+          sortIcons: {
+            ...this.state.sortIcons,
+            sortAlphabet: "asc"
           }
         });
         break;
-      case "fas fa-sort-numeric-up fa-2x":
+      case "rank asc":
         this.setState({
-          data: this.sortRankFunc(),
-          sortIcons: {...this.state.sortIcons,
-            sortRank: "fas fa-sort-numeric-down fa-2x"
+          data: this.sortRankFunc(true),
+          sortIcons: {
+            ...this.state.sortIcons,
+            sortRank: "desc"
           }
         });
         break;
-      case "fas fa-sort-numeric-down fa-2x":
+      case "rank desc":
         this.setState({
-          data: this.sortRankFunc().reverse(),
-          sortIcons: {...this.state.sortIcons,
-            sortRank: "fas fa-sort-numeric-up fa-2x"
+          data: this.sortRankFunc(false),
+          sortIcons: {
+            ...this.state.sortIcons,
+            sortRank: "asc"
           }
         });
         break;
-      case "fas fa-sort-amount-up fa-2x":
+      case "price asc":
         this.setState({
-          data: this.sortPriceFunc(),
-          sortIcons: {...this.state.sortIcons,
-            sortPrice: "fas fa-sort-amount-down fa-2x"
+          data: this.sortPriceFunc(true),
+          sortIcons: {
+            ...this.state.sortIcons,
+            sortPrice: "desc"
           }
         });
         break;
-      case "fas fa-sort-amount-down fa-2x":
+      case "price desc":
         this.setState({
-          data: this.sortPriceFunc().reverse(),
-          sortIcons: {...this.state.sortIcons,
-            sortPrice: "fas fa-sort-amount-up fa-2x"
+          data: this.sortPriceFunc(false),
+          sortIcons: {
+            ...this.state.sortIcons,
+            sortPrice: "asc"
           }
         });
         break;
@@ -231,6 +252,7 @@ class App extends Component {
           fixedHeader={this.state.fixedHeader}
           totalData={this.state.totalData}
           totalCoins={this.state.totalCoins}
+          data={this.state.data}
         />
         <ComponentMain
           renderData={renderData}
