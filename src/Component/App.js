@@ -253,6 +253,7 @@ class App extends Component {
           totalData={this.state.totalData}
           totalCoins={this.state.totalCoins}
           data={this.state.data}
+          isFiltering={this.state.isFiltering}
         />
         <ComponentMain
           renderData={renderData}

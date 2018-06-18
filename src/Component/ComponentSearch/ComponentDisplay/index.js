@@ -15,9 +15,10 @@ const ComponentDisplay = props => {
             <i className="fas fa-sync-alt" />
             {props.CoinsNumber}/{props.totalCoins}
           </React.Fragment>) 
-          :props.data.length < props.totalData.length
-            ?(<React.Fragment>{props.data.length}/{props.totalData.length}</React.Fragment>)
-            :(<React.Fragment>{props.CoinsNumber}</React.Fragment>)
+          :props.isFiltering
+            ?(<React.Fragment>{props.CoinsNumber}</React.Fragment>)
+            :(<React.Fragment>{props.data.length}/{props.totalData.length}</React.Fragment>)
+         
         }
       </div>
       <i

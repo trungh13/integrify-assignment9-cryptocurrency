@@ -20,6 +20,7 @@ const ComponentSearch = props => (
       totalData={props.totalData}
       totalCoins={props.totalCoins}
       data={props.data}
+      isFiltering={props.isFiltering}
     />
   </div>
 );
