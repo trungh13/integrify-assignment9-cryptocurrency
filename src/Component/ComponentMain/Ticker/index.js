@@ -1,11 +1,7 @@
-import React,{Component} from 'react'
+import React,{PureComponent} from 'react'
 import styles from "./index.css";
 
-export class Ticker extends Component {  
-  shouldComponentUpdate(nextProps){
-    if(this.props.data.id===nextProps.data.id)
-      return false ;return true
-  }
+export class Ticker extends PureComponent {  
   render(){
     const data=this.props.data;
     const dataIconSrc = "https://s2.coinmarketcap.com/static/img/coins/32x32/";

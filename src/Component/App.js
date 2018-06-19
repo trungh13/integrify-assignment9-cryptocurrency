@@ -52,8 +52,6 @@ class App extends Component {
         document.body.offsetHeight + 29 &&
       !this.state.isFiltering
     ) {
-      // this.fetchCoinsData(this.state.counter);
-      console.log("to bottom");
       this.setState({
         data: this.state.data.concat(
           this.state.totalData.slice(
@@ -74,7 +72,6 @@ class App extends Component {
       this.setState({
         isFiltering: false
       });
-    // console.log("scroll");
   };
 
   fetchData = () => {
@@ -175,7 +172,7 @@ class App extends Component {
         : b.quotes.USD.price - a.quotes.USD.price;
     });
   };
-  handleSort = (type,typeSort) => {
+  handleSort = (type, typeSort) => {
     switch (`${type} ${typeSort}`) {
       case "alphabet asc":
         this.setState({
